@@ -1,0 +1,266 @@
+{% block content %}
+<div class="container">
+    <h1 class="page-title">Request Status Overview</h1>
+
+    <!-- Accepted Requests Section -->
+    <div class="card status-card accepted">
+        <div class="card-header">
+            <h3>Accepted Requests</h3>
+        </div>
+        <div class="card-body">
+            {% if accepted_requests %}
+                <table class="request-table">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Equipment</th>
+                            <th>Quantity</th>
+                            <th>Borrow Date</th>
+                            <th>Return Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in accepted_requests %}
+                        <tr class="status-success">
+                            <td>{{ request.user.first_name }}</td>
+                            <td>{{ request.user.last_name }}</td>
+                            <td>
+                                {% if request.equipment %}
+                                    {{ request.equipment.name }} <!-- Display Equipment Name -->
+                                {% else %}
+                                    <em>No Equipment</em> <!-- If no equipment assigned -->
+                                {% endif %}
+                            </td>
+                            <td>{{ request.quantity }}</td>
+                            <td>{{ request.borrow_date|date:"M d, Y H:i" }}</td>
+                            <td>{{ request.return_date|date:"M d, Y" }}</td>
+                            <td><span class="badge">Accepted</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No accepted requests found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Rejected Requests Section -->
+    <div class="card status-card rejected">
+        <div class="card-header">
+            <h3>Rejected Requests</h3>
+        </div>
+        <div class="card-body">
+            {% if rejected_requests %}
+                <table class="request-table">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Equipment</th>
+                            <th>Quantity</th>
+                            <th>Borrow Date</th>
+                            <th>Return Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in rejected_requests %}
+                        <tr class="status-danger">
+                            <td>{{ request.user.first_name }}</td>
+                            <td>{{ request.user.last_name }}</td>
+                            <td>
+                                {% if request.equipment %}
+                                    {{ request.equipment.name }} <!-- Display Equipment Name -->
+                                {% else %}
+                                    <em>No Equipment</em> <!-- If no equipment assigned -->
+                                {% endif %}
+                            </td>
+                            <td>{{ request.quantity }}</td>
+                            <td>{{ request.borrow_date|date:"M d, Y H:i" }}</td>
+                            <td>{{ request.return_date|date:"M d, Y" }}</td>
+                            <td><span class="badge">Rejected</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No rejected requests found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Cancelled Requests Section -->
+    <div class="card status-card cancelled">
+        <div class="card-header">
+            <h3>Cancelled Requests</h3>
+        </div>
+        <div class="card-body">
+            {% if cancelled_requests %}
+                <table class="request-table">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Equipment</th>
+                            <th>Quantity</th>
+                            <th>Borrow Date</th>
+                            <th>Return Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in cancelled_requests %}
+                        <tr class="status-secondary">
+                            <td>{{ request.user.first_name }}</td>
+                            <td>{{ request.user.last_name }}</td>
+                            <td>
+                                {% if request.equipment %}
+                                    {{ request.equipment.name }} <!-- Display Equipment Name -->
+                                {% else %}
+                                    <em>No Equipment</em> <!-- If no equipment assigned -->
+                                {% endif %}
+                            </td>
+                            <td>{{ request.quantity }}</td>
+                            <td>{{ request.borrow_date|date:"M d, Y H:i" }}</td>
+                            <td>{{ request.return_date|date:"M d, Y" }}</td>
+                            <td><span class="badge">Cancelled</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No cancelled requests found.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+<style>
+    /* Basic Layout and Typography */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+/* Card Styling */
+.card {
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 15px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: white;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Status Section Colors */
+.accepted .card-header {
+    background-color: #4CAF50; /* Green */
+}
+
+.rejected .card-header {
+    background-color: #F44336; /* Red */
+}
+
+.cancelled .card-header {
+    background-color: #9E9E9E; /* Grey */
+}
+
+/* Table Styling */
+.request-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.request-table th, .request-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.request-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* Table Row Styling */
+.status-success {
+    background-color: #e8f5e9;
+}
+
+.status-danger {
+    background-color: #fbe9e7;
+}
+
+.status-secondary {
+    background-color: #f0f0f0;
+}
+
+.request-table td span.badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+}
+
+.status-success .badge {
+    background-color: #388e3c; /* Dark Green */
+}
+
+.status-danger .badge {
+    background-color: #d32f2f; /* Dark Red */
+}
+
+.status-secondary .badge {
+    background-color: #757575; /* Dark Grey */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .request-table th, .request-table td {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .page-title {
+        font-size: 2rem;
+    }
+}
+
+/* Interactive Button Hover Effects */
+.status-card:hover {
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.status-card .card-header:hover {
+    background-color: #2196F3; /* Blue Hover Effect */
+}
+
+/* Custom Styling for "No Equipment" Text */
+em {
+    font-style: normal;
+    color: #757575;
+}
+
+</style>

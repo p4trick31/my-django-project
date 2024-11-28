@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+/* Welcome Section */
+.welcome-container {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px 0;
+    border-radius: 8px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(20px);
+    animation: slideIn 1s ease-out forwards;
+}
+
+.welcome-container h2 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.welcome-container p {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.dashboard-btn,
+.logout-btn {
+    background-color: #005d9c;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.dashboard-btn:hover,
+.logout-btn:hover {
+    background-color: #003f7f;
+    transform: translateY(-5px);
+}
+
+/* Logout Button Styling */
+.logout-btn {
+    background-color: #e74c3c;
+    font-size: 1.2em;
+    padding: 15px 25px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-5px);
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+/* Hover Effects for Buttons */
+.dashboard-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Animation for Welcome Section */
+@keyframes slideIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .welcome-container h2 {
+        font-size: 2em;
+    }
+
+    .welcome-container p {
+        font-size: 1em;
+    }
+
+    .dashboard-btn,
+    .logout-btn {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
+}
+   /* Coaches' Interactive Section */
+.coaches-section {
+    background-color: #f0f8ff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 30px;
+    max-width: 900px;
+    width: 100%;
+    text-align: left;
+    animation: fadeIn 1s ease-out;
+}
+
+.coaches-section h3 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #005d9c;
+}
+
+.coaches-section ul {
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+}
+
+.coaches-section ul li {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+}
+
+.coaches-section ul li a {
+    color: #005d9c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.coaches-section ul li a:hover {
+    color: #003f7f;
+}
+
+.coaches-section p {
+    font-size: 1.1em;
+    color: #333;
+}
+
+/* Animation for Coaches' Section */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Welcome Section -->
+    <div class="welcome-container">
+        <h2>Welcome, {{ user.username }}</h2>
+        <p>This is your dashboard. Choose an option to get started!</p>
+    </div>
+
+    <!-- Coaches' Interactive Section -->
+    <div class="coaches-section">
+        <h3>Coaches' Dashboard</h3>
+        <p><strong>Quick Tips:</strong></p>
+        <ul>
+            <li>Track athlete performance in the <a href="{% url 'athletics_info' %}">Athletics Info</a> section.</li>
+            <li>Manage and organize upcoming events in the <a href="{% url 'cultural_events' %}">Cultural Events</a> section.</li>
+            <li>View and update the inventory of sports equipment in the <a href="{% url 'inventory_equipment' %}">Inventory Equipment</a> section.</li>
+            <li>Check out equipment availability for your athletes in the <a href="{% url 'equipment_borrowed' %}">Equipment Borrowed</a> section.</li>
+        </ul>
+        <p>Stay on top of everything to ensure your team is prepared and ready for success!</p>
+    </div>
+
+    <!-- Buttons Section -->
+    <div class="button-container">
+        <button class="dashboard-btn" onclick="location.href='{% url 'athletics_info' %}'">Athletics Info</button>
+        <button class="dashboard-btn" onclick="location.href='{% url 'cultural_events' %}'">Cultural Events</button>
+        <button class="dashboard-btn" onclick="location.href='{% url 'inventory_equipment' %}'">Inventory Equipment</button>
+        <button class="dashboard-btn" onclick="location.href='{% url 'equipment_borrowed' %}'">Equipment Borrowed</button>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+
+    <!-- Footer Section -->
+ 
+</body>
+
+</html>
