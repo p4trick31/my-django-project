@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Sticker Application Portal</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: rgb(239, 241, 239);
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #mainBox {
+            display: flex;
+            flex-direction: column;
+            width: 1170px;
+        }
+
+        .head {
+            position: fixed;
+            overflow: hidden;
+            width: 1500px;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            background:darkgreen;
+            align-items: center;
+            font-family: "Serif";
+            border-bottom: 2px solid black;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            margin-left: 6px;
+        }
+
+        .head h3 {
+            font-size: 25px;
+            font-family: 'Arial';
+            padding: 5px 15px;
+            color: gold;
+        }
+
+        .head nav {
+            display: flex;
+            margin: 0px 15px;
+            padding: 5px 10px;
+        }
+
+        .head nav a {
+            margin: 5px 10px;
+            padding: 5px 20px;
+            text-decoration: none;
+            color: rgb(6, 6, 6);
+            font-weight: 700;
+            border-radius: 20px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease;
+            background-color: rgb(5, 168, 100);
+            border: 1px solid white;
+        }
+
+        .head nav a:hover {
+            background: rgb(158, 197, 140);
+        }
+
+        .section {
+            height: 770px;
+            width: 1500px;
+            background: #05975d;
+            background-size: cover;
+            border-bottom: 3px solid black;
+            border-left: 3px solid black;
+            border-right: 3px solid black;
+            margin-left: 6px;
+        }
+
+        .group-section {
+            display: flex;
+        }
+
+        .section .group-section .left-section {
+            width: 750px;
+        }
+
+        .mainBox .left-section {
+            margin-top: 50px;
+            width: 600px;
+        }
+
+        .section h1 {
+            margin-top: 20px;
+            text-align: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 60px;
+            color: ghostwhite;
+        }
+
+        h1:nth-of-type(1) {
+            margin-bottom: 5px;
+        }
+
+        h1:nth-of-type(2) {
+            margin: 0px 0;
+        }
+
+        h1:nth-of-type(3) {
+            margin-top: 5px;
+        }
+
+        .section .group-section .left-section div .logo-debesmscat #pic-debesmscat {
+            width: 150px;
+            height: 150px;
+            margin-top: 80px;
+            border-radius: 50%;
+        }
+
+        .section .group-section .left-section div {
+            display: flex;
+        }
+
+        .section .group-section .left-section div .text-debesmscat {
+            margin-top: 99px;
+            margin-left: 20px;
+            font-size: larger;
+          
+            flex-direction: column;
+        }
+
+        .section .group-section .left-section div .text-debesmscat div {
+           
+            flex-direction: column;
+            margin-top: 0px;
+        }
+
+        p:nth-of-type(1) {
+            margin-bottom: 0px;
+            color: white;
+        }
+
+        p:nth-of-type(2) {
+            margin: 0px 0;
+            color: gold;
+        }
+
+        p:nth-of-type(3) {
+            margin-top: 0px;
+            color: gold;
+        }
+        p:nth-of-type(4) {
+            margin-top: 1px;
+            color:white;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .left-section a {
+            width: 170px;
+            height: 15px;
+            margin: 10px 80px 0px 120px;
+            font-size: 25px;
+            font-family: 'Arial';
+            font-weight: 800;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: black;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            cursor: pointer;
+            background: #beafaa;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            padding-left: 100px;
+        }
+
+        .left-section a::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            padding: 10px 15px;
+            animation: typing 2s steps(40) infinite;
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        .left-section span {
+            display: flex;
+            flex-direction: column;
+            justify-content: baseline;
+            margin: 50px 25px;
+            padding: 15px 30px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            outline: 1px solid #646464;
+            background: #f3f3f3;
+            border-radius: 25px;
+        }
+
+        .left-section span h3 {
+            font-size: 20px;
+            font-family: 'Serif';
+            
+        }
+
+        .right-section {
+            width: 600px;
+            margin-top: 60px;
+            border-left: 3px solid rgb(9, 9, 9);
+            height: 720px;
+            color: ghostwhite;
+        }
+
+        .right-section .text-right .border {
+            margin-left: 90px;
+           margin-top: 10px;
+            
+            border-radius: 1px;
+            border: 2px solid rgb(216, 151, 8);
+            padding-bottom: 10px;
+        }
+
+        .right-section .text-right h3 {
+            margin-top: 50px;
+            margin-left: 9px;
+            font-size: 30px;
+            border-radius: 20px;
+            padding: 20px;
+            color: ghostwhite;
+        }
+
+        .right-section .text-right p {
+            font-size: 20px;
+            margin-left: 10px;
+        }
+
+        .right-section .text-right h5 {
+            border-radius: 20px;
+            border: 2px solid rgb(216, 151, 8);
+            margin-left: 50px;
+            padding: 20px;
+            color: #63ecd1;
+        }
+        .right-section .text-right h2 {
+            border-radius: 20px;
+            border: 2px solid rgb(216, 151, 8);
+            margin-left: 50px;
+            padding: 20px;
+            color: #63ecd1;
+        }
+
+        .text-right .btn_field {
+            display: flex;
+            margin-left: 350px;
+            margin-top: 0px;
+        }
+
+        a {
+            text-decoration: none;
+            color: darkgreen;
+            border: 1px solid rgb(21, 9, 9);
+            border-radius: 20px;
+            height: 30px;
+            width: 70px;
+            text-align: center;
+            font-size: 20px;
+            background-color: #dbb90f;
+            padding-top: 5px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .right-section .p2 {
+            margin-top: 60px;
+        }
+
+        #Contacts .footer {
+            width: 992px;
+            height: 120px;
+            background: #8a8a8a;
+        }
+
+        #Contacts .foot {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .foot ul li {
+            margin: 3px;
+        }
+
+        .foot .right-footer {
+            display: flex;
+            flex-direction: column;
+            margin: 10px 15px;
+        }
+
+        .right-footer .span {
+            display: flex;
+        }
+
+        .right-footer h3 {
+            margin: 10px;
+            margin-left: 10px;
+        }
+
+        .right-footer .span div {
+            margin: 5px 10px;
+        }
+
+        .span div p {
+            margin: 0;
+        }
+
+        #About {
+            height: 700px;
+            display: inline-block;
+            width: 1420px;
+            border-left: 3px solid black;
+            border-right: 3px solid black;
+            border-bottom: 3px solid black;
+            margin-left: 6px;
+        }
+
+        #Inquiry {
+            height: 1000px;
+            background: #f2f1f1;
+            display: inline-block;
+            width: 1420px;
+        }
+
+        #FAQs {
+            height: 1000px;
+            background: #f2f1f1;
+            display: inline-block;
+            width: 1420px;
+        }
+
+        .popup {
+            display: none; 
+            position: fixed;
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.4); 
+            padding-top: 60px;
+        }
+
+        .popup-content {
+            background-color: white;
+            margin: 5% auto; 
+            border: 1px solid #888;
+            width: 70%; 
+            border-radius: 10px;
+         
+            padding-left: 60px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 40px;
+            font-weight: bold;
+            margin-right: 30px;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+#Contacts{
+    height: 770px;
+    background: #e7e7e7;
+    display: inline-block;
+    width: 15002px;   
+}
+  
+#About {
+    padding: 40px;
+   background: #05975d ;
+    font-family: Arial, sans-serif;
+   
+}
+
+.main-about {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.left-about {
+    flex: 3;
+}
+
+.right-about {
+    flex: 2;
+    padding-top: 10px;
+    border-radius: 8px;
+ 
+}
+.right-about.con .details {
+    height: 30px;
+}
+
+.txt {
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+ul.list-disc {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+ul.list-disc li {
+    margin-bottom: 10px;
+}
+
+.right-about h2 {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.right-about .con {
+    margin-bottom: 20px;
+}
+
+.right-about a {
+    color: #87bdb2;
+    text-decoration: none;
+}
+
+.right-about a:hover {
+    text-decoration: underline;
+}
+
+.text-teal-500 {
+    color: #1abc9c;
+}
+
+@media (max-width: 768px) {
+    .main-about {
+        flex-direction: column;
+    }
+
+    .left-about, .right-about {
+        flex: 1;
+        height: 20px;
+    }
+}
+#Footer {
+            height: 140px;
+            background: #05975d ;
+            display: inline-block;
+            width: 1500px;
+            border-left: 3px solid black;
+            border-right: 3px solid black;
+            border-bottom: 3px solid black;
+            margin-left: 6px;
+}
+.footers{
+    display: flex;
+    justify-content: space-around;
+    color: black;
+}
+#Footer .footers .left-footers{
+    display: flex;
+    color: b;
+}
+}
+#Footer .footers .left-footers .textfooters{
+    display: flex;
+    flex-direction: column;
+    background-color: #1abc9c;
+    padding-top: 30px;
+    color: #171717;
+    
+}
+#Footer .footers .left-footers .logo-footers{
+    display: flex;
+    flex-direction: column;
+}
+#Footer .footers .left-footers .logo-footers .logo{
+    width: 20px;
+    height: 20px;
+    background-color: #f0f0f0;
+    margin: 5px;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+#Footer .footers .left-footers .logo-footers .fb{
+    background-image: url(Contactfb.jpg);
+    background-size: 100%;
+    background-position: center;
+    border-radius: 50%;
+}
+#Footer .footers .left-footers .logo-footers .ig{
+    background-image: url(Contactig.jpg);
+    background-size: 100%;
+    background-position: center;
+    border-radius: 50%;
+}#Footer .footers .left-footers .logo-footers .twit{
+    background-image: url(Contactemail.jpg);
+    background-size: 110%;
+    background-position: center;
+}
+
+
+    </style>
+</head>
+<body>
+    <div id="mainBox"></div>
+    <div class="head">
+        <h3>Registration Sticker System</h3>
+        <nav>
+            <a href="#mainBox">Home</a>
+            <a href="#About" onclick="openPopup('aboutPopup')">About</a>
+            <a href="#Inquiry" onclick="openPopup('InquiryPopup')">Inquiry</a>
+            <a href="#FAQs" onclick="openPopup('faqsPopup')">FAQ's</a>
+            <a href="#Contacts" onclick="openPopup('contactPopup')">Contact</a>
+        </nav>
+    </div>
+    <div class="section">
+        <div class="group-section">
+            <div class="left-section">
+                <div>
+                    <div class="logo-debesmscat">
+                       <img id="pic-debesmscat" src="DEBES.jpg" alt="">
+                    </div>
+                    <div class="text-debesmscat">
+                    <p style="font-weight: bold;">Republic of the Philippines </p>
+                    <p>Dr. EIMILIO B. ESPINOSA SR. MEMORIAL</p>
+                    <p> STATE COLLEGE OF AGRICULTURE AND TECHNOLOGY</p>
+                    <p> WWW.debesmscat.edu.ph|Cabitan Mandaon Masbate</p>
+                    </div>
+                </div>
+                <h1>Application Approval</h1>
+                <h1>for</h1>
+                <h1>Vehicle Sticker System</h1>
+                <span>
+                    Registering for your vehicle sticker online is a quick and convenient process designed to enhance your experience. Simply visit our registration portal, fill out the required details such as vehicle information and owner identification, and upload any necessary documents. Once submitted, you’ll receive a confirmation email with your application status. This streamlined system not only saves you time but also ensures secure processing of your information.
+                </span>
+            </div>
+            <div class="right-section">
+                <div class="text-right">
+                    <h2>Want to register read the instructions below to register.</h2>   
+                    <h3>Want to Register my Account?</h3><hr>  
+                    <p style="color: gold;">If you are a user or Applicant?</p>    
+                    <div class="btn_field">
+                        <a href="peller jeson login.html">Register</a>
+                    </div>  
+                    <div class="border">
+                    <h3 style="margin-left: 5px;">Note:</h3>
+                    <li style="margin-left: 5px;">Incomplete requirements will not be processed.</li>
+                    <li style="margin-left: 5px;">Those who have already paid should comply with the above-stated requirements before submitting for proccesing/issuance of Vehicle Pass Sticker.</li>
+                    <li style="margin-left: 5px;">Only CLEAR scotch tape to cover/protect the Vehicle Pass Sticker is allowed.</li>
+                    <li style="margin-left: 5px;">Tampering and/or unauthorized transfer of vehicle pass sticker is a major offense and can be a basis for revocation (removal of sticker).</li>
+                    <li style="margin-left: 5px;">Follow campus rule and regulation.</li>
+                </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="About">
+        <div class="main-about">
+            <div class="left-about">
+
+                <div class="con story">
+                    <div class="txt story-text">
+                        <h3 style="color: rgb(1, 80, 90);">Our Story</h3>
+                    </div>
+                    <p style="color: rgb(4, 4, 4);">Welcome to the Vehicle Sticker Application Portal. Here you can apply for, track, and manage your vehicle stickers with ease.</p>
+                </div>
+                
+                <div class="con team">
+                    <div class="txt team-text">
+                        <h3 style="color: rgb(1, 80, 90);">Application Form</h3>
+                    </div>
+                    <p style="color: rgb(4, 4, 4);">[Apply for Vehicle Sticker] - Fill out the online form with your vehicle details, owner information, and required documents.</p>
+                </div>
+                
+                <div class="con goals">
+                    <div class="txt goals-text">
+                        <h3 style="color: rgb(1, 80, 90);">Requirements</h3>
+                    </div>
+                    <p style="color: rgb(8, 8, 8);">To apply for a vehicle sticker, you must provide:</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Proof of vehicle ownership (registration document)</li>
+                        <li>Valid identification (driver's license or ID card)</li>
+                        <li>Proof of insurance</li>
+                    </ul>
+                </div>
+    
+                <div class="con goals">
+                    <div class="txt goals-text">
+                        <h3 style="color: rgb(1, 80, 90);" >Approval Process</h3>
+                    </div>
+                    <p style="color: rgb(4, 4, 4);">The approval process typically includes:</p>
+                    <ul class="list-disc ml-6 mt-2">
+                        <li>Submission of the application.</li>
+                        <li>Verification of documents.</li>
+                        <li>Approval notification via email or SMS.</li>
+                        <li>Paid online fees for sticker.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="right-about">
+                <div class="con quality">
+                    <h2 style="color: rgb(1, 80, 90);">FAQs</h2>
+                    <h4>How long does it take to receive my sticker?</h4>
+                    <p style="color: rgb(4, 4, 4);">Processing usually takes 5-7 business days.</p>
+                    <h4>How much is the required fees?</h4>
+                    <li>Motorcycle/Tricycle (Service Delivery) - P 100.00</li>
+                    <li>Private ALV/SUV/Pick-up/Sedan/Hatch - 250.00</li>
+                    <li>Delivery Vehicles Truck/Vans - 500.00</li>
+                    <li>PUV/PUJ/PUB - 1,000.00</li>
+                </div>
+
+                <div class="con satisfaction">
+                    <h3 style="color: rgb(1, 80, 90);">Terms and Conditions</h3>
+                    <p style="color: rgb(4, 4, 4);">By applying for a vehicle sticker, you agree to comply with all relevant laws and regulations regarding vehicle ownership and use. Please read our full terms</p>
+                    <li>Incomplete requirements will not be processed.</li>
+                    <li>Those who have already paid should comply with the above-stated requirements before submitting for proccesing/issuance of Vehicle Pass Sticker.</li>
+                    <li>Only CLEAR scotch tape to cover/protect the Vehicle Pass Sticker is allowed.</li>
+                    <li>Tampering and/or unauthorized transfer of vehicle pass sticker is a major offense and can be a basis for revocation (removal of sticker).</li>
+                    <li>Follow campus rule and regulation.</li>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contactPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('contactPopup')">&times;</span>
+            <h2>Contact Information</h2>
+            <p>Email: support@vehiclestickers.com</p>
+            <p>Phone: (555) 123-4567</p>
+        </div>
+    </div>
+
+    <div id="faqsPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('faqsPopup')">&times;</span>
+            <h2>FAQs</h2>
+            <h4>How long does it take to receive my sticker?</h4>
+            <li>Processing usually takes 5-7 business days.</li>
+            <h4>How much is the required fees?</h4>
+            <li>Motorcycle/Tricycle (Service Delivery) - P 100.00</li>
+            <li>Private ALV/SUV/Pick-up/Sedan/Hatch - 250.00</li>
+            <li>Delivery Vehicles Truck/Vans - 500.00</li>
+            <li>PUV/PUJ/PUB - 1,000.00</li>
+        </div>
+    </div>
+
+    <div id="InquiryPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('InquiryPopup')">&times;</span>
+            <h2>Inquiry</h2>
+            <p>[Apply for Vehicle Sticker] - Fill out the online form with your vehicle details, owner information, and required documents.</p>
+            <h3>Terms and Conditions</h3>
+            <p>By applying for a vehicle sticker, you agree to comply with all relevant laws and regulations regarding vehicle ownership and use. Please read our full terms</a>.</p>
+            <p>The approval process typically includes:</p>
+            <h3>Track Application</h3>
+            <h3>Approval Process</h3>
+         <ul>
+                <li>Submission of the application</li>
+                <li>Verification of documents</li>
+                <li>Approval notification via email or SMS</li>
+         </ul>
+            <h3>Requirements</h3>
+            <p>To apply for a vehicle sticker, you must provide:</p>
+         <ul>
+            <li>Proof of vehicle ownership (registration document)</li>
+            <li>Valid identification (driver's license or ID card)</li>
+            <li>Proof of insurance</li>
+         </ul>
+        </div>
+    </div>
+
+    <div id="aboutPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('aboutPopup')">&times;</span>
+            <h2>About Us</h2>
+            <p>Welcome to the Vehicle Sticker Application Portal. Here you can apply for, track, and manage your vehicle stickers with ease.</p>
+        </div>
+    </div>
+    <div id="Footer">
+        <div class="footers">
+            <div class="left-footers">
+              <div class="logo-footers" style="padding-top: 2%;">
+                <div class="fb logo" style="padding-top: 5%;"></div>
+                <div class="ig logo"></div>
+                <div class="twit logo"></div>
+              </div>
+              <div class="textfooters">
+                <p style="padding-bottom: 5px; color: black;">DEBESMSCAT Guidance and Admission Service</p>
+                <p style="padding-bottom: 15px; padding-top: 5px; color: #171717;">DEBESMSCAT_Masbate</p>
+                <p style="color: black;">Admission_debesmscat.edu.ph</p>
+              </div>        
+             </div>
+           
+        </div>
+    </div>
+    
+
+    <script>
+        function openPopup(popupId) {
+            document.getElementById(popupId).style.display = "block";
+        }
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = "none";
+        }
+
+        // Close the popup if the user clicks outside of it
+        window.onclick = function(event) {
+            const popups = ['contactPopup', 'faqsPopup', 'aboutPopup', 'nquiryPopup'];
+            popups.forEach(popupId => {
+                if (event.target.id === popupId) {
+                    closePopup(popupId);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
