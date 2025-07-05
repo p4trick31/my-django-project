@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Events</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<h1>Welcome to Create Events</h1>
+{% block content %}
+
+<!-- Event Creation Form -->
+<h1>Create New Event</h1>
+<form method="post" class="mb-5">
+    {% csrf_token %}
+    <h2>Event Details</h2>
+    <div class="mb-3">
+        <label for="id_name" class="form-label">{{ event_form.name.label }}</label>
+        <input type="text" name="name" id="id_name" class="form-control" value="{{ event_form.name.value|default_if_none:'' }}">
+    </div>
+    <div class="mb-3">
+        <label for="id_date" class="form-label">{{ event_form.date.label }}</label>
+        <input type="date" name="date" id="id_date" class="form-control" value="{{ event_form.date.value|default_if_none:'' }}">
+    </div>
+    <div class="mb-3">
+        <label for="id_description" class="form-label">{{ event_form.description.label }}</label>
+        <textarea name="description" id="id_description" class="form-control">{{ event_form.description.value|default_if_none:'' }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Event</button>
+</form>
+
+<!-- Events List -->
+<h2 class="mt-4">Existing Events</h2>
+<div class="event-list">
+    {% for event in events %}
+    <div class="card mb-3">
+        <div class="card-header">
+            <h4>{{ event.name }}</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Date:</strong> {{ event.date }}</p>
+            <p><strong>Description:</strong> {{ event.description }}</p>
+
+            <!-- Button to trigger category modal -->
+            <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#addCategoryModal{{ event.id }}">
+                Add Category
+            </button>
+
+            <!-- Display Add Participants button only if a category exists -->
+            {% if event.categories.exists %}
+            <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addParticipantModal{{ event.id }}">
+                Add Participants
+            </button>
+
+            <!-- Participants Table -->
+            <h5 class="mt-4">Participants for <strong>{{ event.name}}</strong></h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Course</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for participant in event.participants.all %}
+                    <tr>
+                        <td>{{ participant.first_name }}</td>
+                        <td>{{ participant.last_name }}</td>
+                        <td>{{ participant.course }}</td>
+                        <td>{{ participant.category_name}}</td>
+                        
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editParticipantModal{{ participant.id }}">
+                                Edit
+                            </button>
+                            <a href="{% url 'delete_participant' participant.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No participants added yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Modal for Adding Category -->
+    <div class="modal fade" id="addCategoryModal{{ event.id }}" tabindex="-1" aria-labelledby="addCategoryLabel{{ event.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCategoryLabel{{ event.id }}">Add Category to {{ event.name }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="{% url 'add_category' event.id %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="id_category" class="form-label">Category Name</label>
+                            <input type="text" name="category_name" class="form-control" placeholder="Enter category name">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Category</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Editing Participant -->{% for participant in event.participants.all %}
+<div class="modal fade" id="editParticipantModal{{ participant.id }}" tabindex="-1" aria-labelledby="editParticipantLabel{{ participant.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editParticipantLabel{{ participant.id }}">Edit Participant - {{ participant.first_name }} {{ participant.last_name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="{% url 'edit_participant' participant.id %}" id="editParticipantForm{{ participant.id }}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <!-- Participant Edit Form Fields -->
+                    <div class="mb-3">
+                        <label for="id_first_name" class="form-label">First Name</label>
+                        <input type="text" name="first_name" class="form-control" value="{{ participant.first_name }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_last_name" class="form-label">Last Name</label>
+                        <input type="text" name="last_name" class="form-control" value="{{ participant.last_name }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_course" class="form-label">Course</label>
+                        <input type="text" name="course" class="form-control" value="{{ participant.course }}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+
+    <!-- Modal for Adding Participants -->
+    {% if event.categories.exists %}
+    <div class="modal fade" id="addParticipantModal{{ event.id }}" tabindex="-1" aria-labelledby="addParticipantLabel{{ event.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addParticipantLabel{{ event.id }}">Add Participants to {{ event.name }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="{% url 'add_participant' event.id %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        {{ participant_form.as_p }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Participant</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>

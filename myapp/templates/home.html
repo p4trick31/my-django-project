@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debesmscat Sports and Cultural Events</title>
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+/* Header */
+.header {
+    background-color: #005d9c;
+    padding: 20px 0;
+    color: white;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header .logo {
+    font-size: 2.5em;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.header-buttons a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.header-buttons button {
+    background-color: transparent;
+    border: 2px solid white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.header-buttons button:hover {
+    background-color: #ff9d60;
+    color: #0f0f10;
+}
+
+/* Main Content */
+main {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+/* Intro Section */
+.intro {
+    background: linear-gradient(135deg, #ff6f61, #ff9d60);
+    color: white;
+    padding: 80px 20px;
+    border-radius: 15px;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+    transform: translateY(20px);
+    animation: slideIn 1s ease-out forwards;
+}
+
+.intro h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.intro p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.btn-main {
+    background-color: #fff;
+    color: #ff6f61;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-main:hover {
+    background-color: #ff6f61;
+    color: white;
+}
+
+/* Events Section */
+.events {
+    margin-top: 40px;
+}
+
+.events h3 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.events ul {
+    list-style-type: none;
+}
+
+.events li {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.events li:hover {
+    transform: translateY(-5px);
+    background-color: #f8f8f8;
+}
+
+.events h4 {
+    font-size: 1.8em;
+    color: #005d9c;
+}
+
+.events p {
+    font-size: 1.2em;
+    color: #777;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer p {
+    font-size: 1em;
+}
+
+/* Animation */
+@keyframes slideIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: column;
+    }
+
+    .header .logo {
+        font-size: 2em;
+    }
+
+    .intro h2 {
+        font-size: 2em;
+    }
+
+    .intro p {
+        font-size: 1.1em;
+    }
+
+    .events h3 {
+        font-size: 2.2em;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Debesmscat Sports Cultural </h1>
+            <div class="header-buttons">
+                <button class="signin-btn"><a href="{% url 'login' %}">Sign In</a></button>
+                <button class="admin-btn"><a href="{% url 'admin_login' %}">Admin</a></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Intro Section -->
+        <section class="intro">
+            <h2>Welcome to DEBESMSCAT</h2>
+            <p>Join us for an exciting array of sports and cultural events. Whether you're a fan, participant, or organizer, there's something for everyone!</p>
+            <a href="#events" class="btn-main">Explore Events</a>
+        </section>
+
+        <!-- Upcoming Events Section -->
+        <section class="events" id="events">
+            <h3>Upcoming Events</h3>
+            <ul>
+                <li>
+                    <h4>Annual Sports Meet</h4>
+                    <p>December 2024</p>
+                </li>
+                <li>
+                    <h4>Cultural Fest</h4>
+                    <p>January 2025</p>
+                </li>
+                <li>
+                    <h4>Art Exhibition</h4>
+                    <p>February 2025</p>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Debesmscat Sports and Cultural Events. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

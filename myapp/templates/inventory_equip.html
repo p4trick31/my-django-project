@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Inventory</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="text-center">Sports Inventory</h1>
+    <hr>
+
+    <!-- Add Sport Form -->
+    <h2>Add Sport</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ sport_form.as_p }}
+        <button type="submit" name="add_sport" class="btn btn-primary">Add Sport</button>
+    </form>
+
+    <hr>
+
+    <!-- Add Equipment Form -->
+    <h2>Add Equipment</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ equipment_form.as_p }}
+        <button type="submit" name="add_equipment" class="btn btn-success">Add Equipment</button>
+    </form>
+
+    <hr>
+
+    <!-- Display Sports and Equipment -->
+    <h2>Sports and Equipment</h2>
+    <ul class="list-group">
+        {% for item in sport_data %}
+            <li class="list-group-item">
+                <h4>{{ item.sport.name }}</h4>
+                <ul>
+                    {% for equipment in item.equipment_items %}
+                        <li id="equipmentItem{{ equipment.id }}">
+                            <span class="equipment-name">{{ equipment.name }}</span> - 
+                            <span class="equipment-quantity">Quantity: {{ equipment.quantity }}</span>
+                            
+                            <!-- Trigger Modal Button -->
+                            <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ equipment.id }}">
+                                Edit
+                            </button>
+
+                            <!-- Edit Modal -->
+                            <div class="modal fade" id="editModal{{ equipment.id }}" tabindex="-1" aria-labelledby="editModalLabel{{ equipment.id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel{{ equipment.id }}">Edit Equipment</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form method="POST" action="{% url 'edit_equipment' equipment.id %}" id="editForm{{ equipment.id }}" onsubmit="handleModalSubmit(event, {{ equipment.id }})">
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="equipmentName{{ equipment.id }}" class="form-label">Equipment Name</label>
+                                                    <input type="text" name="name" id="equipmentName{{ equipment.id }}" class="form-control" value="{{ equipment.name }}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="equipmentQuantity{{ equipment.id }}" class="form-label">Quantity</label>
+                                                    <input type="number" name="quantity" id="equipmentQuantity{{ equipment.id }}" class="form-control" value="{{ equipment.quantity }}">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-success">Save Changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+              
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+   function handleModalSubmit(event, equipmentId) {
+    event.preventDefault(); // Prevent form from submitting traditionally
+
+    const form = document.getElementById('editForm' + equipmentId);
+    const formData = new FormData(form);
+
+    $.ajax({
+        url: form.action,
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if (response.success) {
+                // Update equipment item dynamically without reloading the page
+                const equipmentItem = document.getElementById('equipmentItem' + equipmentId);
+                equipmentItem.querySelector('.equipment-name').textContent = response.updated_equipment.name;
+                equipmentItem.querySelector('.equipment-quantity').textContent = 'Quantity: ' + response.updated_equipment.quantity;
+
+                // Hide the modal
+                const modalElement = document.getElementById('editModal' + equipmentId);
+                const modal = bootstrap.Modal.getInstance(modalElement); // Get the existing modal instance
+                modal.hide(); // Properly hide the modal
+            } else {
+                alert('Failed to update equipment: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert('Error: ' + error);
+        }
+    });
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">All Borrow Requests</h1>
+
+        {% for sport_name, sport_requests in grouped_requests.items %}
+            <div class="card mb-4 custom-card">
+                <div class="card-header custom-card-header">
+                    <h3>{{ sport_name }}</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Table with sorting, searching, and interactive features -->
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Account Type</th>
+                                <th>Department</th>
+                                <th>Equipment</th>
+                                <th>Quantity</th>
+                                <th>Date Submitted</th>
+                                <th>Return Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for request in sport_requests %}
+                                <tr class="{% if request.status == 'waiting' %}waiting{% elif request.status == 'accepted' %}accepted{% else %}rejected{% endif %}">
+                                    <td>{{ request.user.first_name }}</td>
+                                    <td>{{ request.user.last_name }}</td>
+                                    <td>{{ request.user.profile.account_type }}</td>
+                                    <td>{{ request.user.profile.department }}</td>
+                                    <td>
+                                        {% if request.equipment %}
+                                            {{ request.equipment.name }}
+                                        {% else %}
+                                            No Equipment
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ request.quantity }}</td>
+                                    <td>{{ request.borrow_date|date:"M d, Y" }}</td>
+                                    <td>{{ request.return_date|date:"M d, Y" }}</td>
+                                    <td>
+                                        {% if request.status == 'waiting' %}
+                                            <span class="badge waiting-status">Waiting</span>
+                                        {% elif request.status == 'accepted' %}
+                                            <span class="badge accepted-status">Accepted</span>
+                                        {% elif request.status == 'rejected' %}
+                                            <span class="badge rejected-status">Rejected</span>
+                                        {% elif request.status == 'cancelled' %}
+                                            <span class="badge cancelled-status">Cancelled</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if request.status == 'waiting' %}
+                                            <a href="{% url 'handle_request_status' request.id 'accept' %}" class="action-button accept-button">Accept</a>
+                                            <a href="{% url 'handle_request_status' request.id 'reject' %}" class="action-button reject-button">Reject</a>
+                                        {% else %}
+                                            <button class="action-button disabled-button" disabled>Action Not Available</button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+<!-- Custom CSS -->
+<style>
+    /* Card and Header Styling */
+    .custom-card {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 25px;
+    }
+
+    .custom-card-header {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px;
+        font-size: 1.5rem;
+        border-radius: 10px 10px 0 0;
+    }
+
+    /* Table Styling */
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .custom-table th, .custom-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .custom-table th {
+        background-color: #f4f4f4;
+    }
+
+    .custom-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Status Badges Styling */
+    .badge {
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .waiting-status {
+        background-color: #f39c12;
+    }
+
+    .accepted-status {
+        background-color: #28a745;
+    }
+
+    .rejected-status {
+        background-color: #e74c3c;
+    }
+
+    .cancelled-status {
+        background-color: #95a5a6;
+    }
+
+    /* Button Styling */
+    .action-button {
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        margin-right: 10px;
+        display: flex;
+        
+    }
+
+    .accept-button {
+        background-color: #28a745;
+    }
+
+    .reject-button {
+        background-color: #e74c3c;
+    }
+
+    .disabled-button {
+        background-color: #bdc3c7;
+    }
+
+    .action-button:hover {
+        opacity: 0.8;
+    }
+
+    /* Text Styling */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .mb-4 {
+        margin-bottom: 30px;
+    }
+
+    /* Table Row Styling Based on Status */
+    .waiting {
+        background-color: #f9f7e6;
+    }
+
+    .accepted {
+        background-color: #e9f7ec;
+    }
+
+    .rejected {
+        background-color: #f7e6e6;
+    }
+</style>
